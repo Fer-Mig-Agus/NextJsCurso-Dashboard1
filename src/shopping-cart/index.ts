@@ -1,2 +1,2 @@
-import CartCounter from "./components/CartCounter";
+//import CartCounter from "./components/CartCounter";
 

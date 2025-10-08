@@ -1,5 +1,4 @@
 import { PokemonsResponse, SimplePokemon } from "@/pokemons";
-import Image from "next/image";
 import { PokemonGrid } from '../../../pokemons/components/PokemonGrid';
 
 

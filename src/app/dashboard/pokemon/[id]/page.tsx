@@ -7,6 +7,14 @@ interface Props {
   params: { id: string };
 }
 
+// Solo se ejecuta en build time
+export async function generateStaticParams() {
+
+  const static151Pokemons = Array.from({length:151}).map((value, index)=> `${index+1}`)
+
+  return static151Pokemons.map(id=> ({id}))
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { id, name } = await getPokemon(params.id);
@@ -24,22 +32,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const getPokemon = async (id: string): Promise<Pokemon> => {
-
-
   try {
-      const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-    cache: "force-cache", // TODO: cambiar esto en un rato
-  }).then((res) => res.json());
+    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+      //cache: "force-cache",
+      next:{
+        revalidate:60*60*30*6
+      }
+    }).then((res) => res.json());
 
-  console.log(pokemon);
+    console.log(pokemon);
 
-  return pokemon;
+    return pokemon;
   } catch (error) {
+    console.log(error)
     notFound();
   }
-
-
-
 };
 
 export default async function PokemonPage({ params }: Props) {
