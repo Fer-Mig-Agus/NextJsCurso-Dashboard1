@@ -10,7 +10,7 @@ interface Props {
   subtitle: string;
 }
 
-const SidebarMenuItem = ({ path, icon, title, subtitle }: Props) => {
+export const SidebarMenuItem = ({ path, icon, title, subtitle }: Props) => {
 
     const pathName = usePathname()
 
@@ -39,4 +39,3 @@ const SidebarMenuItem = ({ path, icon, title, subtitle }: Props) => {
   );
 };
 
-export default SidebarMenuItem;
